@@ -8,24 +8,47 @@ can be published and iterated on without touching the Flutter build.
 ## Layout
 
 ```
-index.html      landing page — "Boarding Pass" concept, self-contained <style> block
-privacy.html    privacy policy
-terms.html      terms of service
-css/styles.css  styles for privacy + terms only (index.html carries its own)
-js/main.js      nav/scroll behaviour for privacy + terms
-assets/         app_logo.jpg, l3x_macro.png, l3x_meso.png, l3x_micro.png
+index.html      landing page — "Boarding Pass" concept
+privacy.html    privacy policy          ─┐ the document sheet:
+terms.html      terms of service        ─┘ legal copy printed on bone
+css/site.css    SHARED — palette tokens, base type, nav, footer, document sheet
+assets/         app_icon.png (+ favicon/touch sizes), l3x_macro/meso/micro.png
+favicon.ico     32 + 64 px, so the browser's root probe resolves
 CNAME           l3x.info — GitHub Pages custom domain
 .nojekyll       serve files as-is, no Jekyll build step
 ```
 
-`index.html` is the tarmac / boarding-pass design that matches the shipping app
-(tarmac black `#0b0c0e`, bone `#f2efe9`, signal amber `#ffb100`; Archivo display +
-IBM Plex Mono data). The earlier glassmorphism landing page was retired in the move,
-along with its unused art (`hero.png`, `logo.png`, `watch.png`).
+Every page is the tarmac / boarding-pass design that matches the shipping app —
+tarmac black `#0b0c0e`, bone `#f2efe9`, signal amber `#ffb100`; Archivo display +
+IBM Plex Mono for data.
 
-**Known mismatch:** `privacy.html` and `terms.html` still wear the retired
-glassmorphism design (Inter/Outfit via `css/styles.css`). They need a tarmac
-re-skin to match `index.html`.
+**`css/site.css` is the single source of truth** for the palette, page chrome and
+the document sheet. Page-specific styling stays inline in the page that needs it
+(`index.html` keeps its hero, boarding pass and departures board). Change a colour
+once, in `site.css` — do not fork these rules into a page.
+
+On a bone surface, raw amber and red wash out, so printed documents use the
+AA-contrast variants `--amber-ink` and `--stamp-red`. Same rule the app follows.
+
+`assets/app_icon.png` is the shipping iOS app icon (1024², from
+`nexus/ios/Runner/Assets.xcassets/AppIcon.appiconset/`). **If the app icon changes,
+re-copy it and regenerate the derived sizes:**
+
+```bash
+sips -Z 180 assets/app_icon.png --out assets/apple-touch-icon.png
+sips -Z 64  assets/app_icon.png --out assets/favicon-64.png
+sips -Z 32  assets/app_icon.png --out assets/favicon-32.png
+```
+
+## The retired design
+
+The original glassmorphism site — landing page, pre-re-skin legal pages, its
+stylesheet, script and art — is preserved verbatim on the **`archive/glassmorphism`**
+branch, which Pages does not serve. See `ARCHIVE.md` there.
+
+```bash
+git checkout archive/glassmorphism
+```
 
 ## Deploying
 

@@ -1,0 +1,189 @@
+/* ============================================================
+   L3X — shared site foundation
+   Palette: tarmac black / bone white / signal amber
+   Type:    Archivo (display) + IBM Plex Mono (data)
+
+   Every page links this file. Tokens, page chrome (nav + footer)
+   and the bone document sheet live here so the landing page and
+   the legal pages can never drift apart. Page-specific styling
+   stays in the page.
+   ============================================================ */
+:root{
+  --ink:        #0b0c0e;
+  --ink-2:      #121417;
+  --ink-3:      #1a1d21;
+  --bone:       #f2efe9;
+  --bone-dim:   #a8a49c;
+  --amber:      #ffb100;
+  --amber-dim:  rgba(255,177,0,.14);
+  --green:      #37d67a;
+  --line:       rgba(242,239,233,.14);
+  --line-soft:  rgba(242,239,233,.07);
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --disp: 'Archivo', 'Inter Tight', system-ui, sans-serif;
+  --ease-out: cubic-bezier(.16,1,.3,1);
+
+  /* ink-on-bone signal colours — raw amber/red wash out on a light
+     surface, so printed documents use these AA-contrast variants */
+  --amber-ink:  #956200;
+  --stamp-red:  #c63b27;
+  --ink-soft:   #4a4d52;
+  --rule-bone:  rgba(11,12,14,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--bone);
+  font-family:var(--disp);
+  line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* film grain */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+::selection{background:var(--amber);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.amber{color:var(--amber)}
+.label{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--bone-dim);
+}
+.label::before{content:"— ";color:var(--amber)}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+}
+
+/* ============================ NAV ============================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(11,12,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.25rem;letter-spacing:.02em}
+.brand img{width:30px;height:30px;border-radius:7px}
+.brand .tag{font-family:var(--mono);font-weight:500;font-size:.62rem;letter-spacing:.28em;color:var(--bone-dim);border-left:1px solid var(--line);padding-left:12px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:28px;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+.nav-links a{color:var(--bone-dim);transition:color .2s}
+.nav-links a:hover{color:var(--bone)}
+.btn-board{
+  color:var(--ink)!important;background:var(--amber);padding:9px 18px;font-weight:600;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);
+  transition:transform .2s var(--ease-out),background .2s;
+}
+.btn-board:hover{transform:translateX(3px);background:#ffc233}
+@media(max-width:760px){.nav-links a:not(.btn-board){display:none}.brand .tag{display:none}}
+
+/* ======================= FOOTER ======================= */
+footer{border-top:1px solid var(--line-soft);padding:44px 0 60px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim)}
+.foot a:hover{color:var(--bone)}
+.foot .links{display:flex;gap:26px}
+
+/* ============================================================
+   THE DOCUMENT SHEET — privacy, terms
+   Legal copy prints on bone, the way tickets and passes do in the
+   app. Chrome stays on the tarmac; the document is the paper.
+   ============================================================ */
+.doc{padding:118px 0 76px}
+
+.doc-head{max-width:860px;margin:0 auto 26px}
+.doc-head h1{
+  font-family:var(--disp);font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.1rem,5vw,3.2rem);line-height:1.04;letter-spacing:-.02em;margin:14px 0 0;
+}
+
+/* the paper */
+.sheet{
+  max-width:860px;margin:0 auto;background:var(--bone);color:var(--ink);
+  border-radius:12px;padding:0 0 34px;
+  box-shadow:0 30px 70px rgba(0,0,0,.5),0 2px 0 rgba(255,255,255,.04);
+  position:relative;overflow:hidden;
+}
+/* document header band */
+.sheet-head{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:22px 44px;border-bottom:1px solid var(--rule-bone);
+}
+.sheet-head .mark{display:flex;align-items:center;gap:11px;font-weight:900;font-size:1.05rem;letter-spacing:.02em}
+.sheet-head .mark img{width:26px;height:26px;border-radius:6px}
+.sheet-head .meta{
+  font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);text-align:right;
+}
+.sheet-head .meta b{display:block;color:var(--ink);font-weight:600}
+
+.sheet-body{padding:34px 44px 0;font-size:1.01rem;line-height:1.75;font-weight:500;color:#26282c}
+.sheet-body p{margin-bottom:1.35rem}
+.sheet-body strong{color:var(--ink);font-weight:700}
+.sheet-body ul{margin:0 0 1.35rem 1.15rem;list-style:none}
+.sheet-body li{position:relative;margin-bottom:.6rem;padding-left:.35rem}
+.sheet-body li::before{
+  content:"";position:absolute;left:-.95rem;top:.72em;
+  width:5px;height:5px;background:var(--amber-ink);border-radius:1px;
+}
+
+/* numbered section headings — mono index, Archivo title */
+.sheet-body h2{
+  font-family:var(--disp);font-weight:800;text-transform:uppercase;
+  font-size:1.16rem;line-height:1.22;letter-spacing:.01em;
+  margin:2.6rem 0 1rem;padding-top:1.5rem;border-top:1px solid var(--rule-bone);
+  display:flex;gap:14px;align-items:baseline;
+}
+.sheet-body h2 .n{
+  font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  color:var(--amber-ink);flex:none;transform:translateY(-1px);
+}
+.sheet-body h2:first-child{border-top:0;padding-top:0;margin-top:0}
+
+/* the effective-date strip that opens every document */
+.effective{
+  font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-soft);
+  padding-bottom:1.35rem;margin-bottom:1.6rem;border-bottom:1px solid var(--rule-bone);
+}
+.effective b{color:var(--ink);font-weight:600}
+
+/* callouts — a rail carries the weight, never a wash of colour */
+.callout{
+  border-left:3px solid var(--amber-ink);background:rgba(149,98,0,.06);
+  padding:18px 22px;margin:0 0 1.5rem;border-radius:0 6px 6px 0;
+}
+.callout p{margin:0}
+.callout.danger{border-left-color:var(--stamp-red);background:rgba(198,59,39,.06)}
+.callout.danger p{color:#8c2a1b}
+.callout.danger strong{color:#8c2a1b}
+/* the original documents set these two blocks in all-caps — kept */
+.callout.shout p{text-transform:uppercase;font-weight:700;color:var(--ink);letter-spacing:.01em;font-size:.95rem;line-height:1.65}
+
+/* document foot */
+.sheet-foot{
+  margin:2.6rem 44px 0;padding-top:20px;border-top:1px solid var(--rule-bone);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.sheet-foot a{color:var(--amber-ink);font-weight:600}
+.sheet-foot a:hover{text-decoration:underline}
+
+@media(max-width:720px){
+  .doc{padding:100px 0 60px}
+  .sheet-head{padding:18px 24px}
+  .sheet-head .meta{text-align:left}
+  .sheet-body{padding:26px 24px 0;font-size:.97rem}
+  .sheet-foot{margin:2.2rem 24px 0}
+  .sheet-body h2{font-size:1.06rem;gap:10px}
+}

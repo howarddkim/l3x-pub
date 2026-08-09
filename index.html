@@ -8,83 +8,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="css/site.css">
 <style>
 /* ============================================================
-   L3X — "Boarding Pass" concept
-   Palette: tarmac black / bone white / signal amber
-   Type:    Archivo (display) + IBM Plex Mono (data)
+   L3X — "Boarding Pass" concept, landing page
+   Palette, base type, nav and footer live in css/site.css so the
+   legal pages share them. What follows is landing-page only.
    ============================================================ */
-:root{
-  --ink:        #0b0c0e;
-  --ink-2:      #121417;
-  --ink-3:      #1a1d21;
-  --bone:       #f2efe9;
-  --bone-dim:   #a8a49c;
-  --amber:      #ffb100;
-  --amber-dim:  rgba(255,177,0,.14);
-  --green:      #37d67a;
-  --line:       rgba(242,239,233,.14);
-  --line-soft:  rgba(242,239,233,.07);
-  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --disp: 'Archivo', 'Inter Tight', system-ui, sans-serif;
-  --ease-out: cubic-bezier(.16,1,.3,1);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--ink);
-  color:var(--bone);
-  font-family:var(--disp);
-  line-height:1.55;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
-/* film grain */
-body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
-}
-::selection{background:var(--amber);color:var(--ink)}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.container{max-width:1160px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
-.amber{color:var(--amber)}
-.label{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--bone-dim);
-}
-.label::before{content:"— ";color:var(--amber)}
-
-/* ---------- reveal-on-scroll ---------- */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
-.reveal.in{opacity:1;transform:none}
-.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
-@media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1;transform:none;transition:none}
-  *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
-}
-
-/* ============================ NAV ============================ */
-.nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  border-bottom:1px solid var(--line-soft);
-  background:rgba(11,12,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.25rem;letter-spacing:.02em}
-.brand img{width:30px;height:30px;border-radius:7px}
-.brand .tag{font-family:var(--mono);font-weight:500;font-size:.62rem;letter-spacing:.28em;color:var(--bone-dim);border-left:1px solid var(--line);padding-left:12px;text-transform:uppercase}
-.nav-links{display:flex;align-items:center;gap:28px;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
-.nav-links a{color:var(--bone-dim);transition:color .2s}
-.nav-links a:hover{color:var(--bone)}
-.btn-board{
-  color:var(--ink)!important;background:var(--amber);padding:9px 18px;font-weight:600;
-  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);
-  transition:transform .2s var(--ease-out),background .2s;
-}
-.btn-board:hover{transform:translateX(3px);background:#ffc233}
-@media(max-width:760px){.nav-links a:not(.btn-board){display:none}.brand .tag{display:none}}
 
 /* ============================ HERO ============================ */
 .hero{position:relative;padding:150px 0 90px;overflow:hidden}
@@ -311,12 +244,6 @@ section{padding:96px 0}
 .strip .badge{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:10px 16px;color:var(--bone-dim)}
 .strip .badge svg{width:16px;height:16px}
 
-/* ======================= FOOTER ======================= */
-footer{border-top:1px solid var(--line-soft);padding:44px 0 60px}
-.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim)}
-.foot a:hover{color:var(--bone)}
-.foot .links{display:flex;gap:26px}
-
 /* section headers */
 .sec-head{max-width:720px}
 .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:900;text-transform:uppercase;line-height:1.08;margin:14px 0 14px}
@@ -329,7 +256,7 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px}
 <header class="nav">
   <div class="container nav-inner">
     <a href="#" class="brand">
-      <img src="assets/app_logo.jpg" alt="L3X logo">
+      <img src="assets/app_icon.png" alt="L3X logo">
       L3X <span class="tag">Longevity Airlines</span>
     </a>
     <nav class="nav-links">
@@ -562,7 +489,7 @@ footer{border-top:1px solid var(--line-soft);padding:44px 0 60px}
       <div class="reveal d2">
         <div class="member-card" id="membercard">
           <div class="mc-top">
-            <img src="assets/app_logo.jpg" alt="">
+            <img src="assets/app_icon.png" alt="">
             <span class="mc-tier">Premier Member</span>
           </div>
           <div class="mc-name"><small>Member</small>YOUR NAME HERE</div>
