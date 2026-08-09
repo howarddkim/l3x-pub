@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3X — Boarding Pass to Longevity</title>
+<meta name="description" content="L3X is a premium membership for strength training and longevity. Algorithmic periodization, RPE auto-regulation, and nutrition tracking — your boarding pass to a longer, stronger life.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   L3X — "Boarding Pass" concept
+   Palette: tarmac black / bone white / signal amber
+   Type:    Archivo (display) + IBM Plex Mono (data)
+   ============================================================ */
+:root{
+  --ink:        #0b0c0e;
+  --ink-2:      #121417;
+  --ink-3:      #1a1d21;
+  --bone:       #f2efe9;
+  --bone-dim:   #a8a49c;
+  --amber:      #ffb100;
+  --amber-dim:  rgba(255,177,0,.14);
+  --green:      #37d67a;
+  --line:       rgba(242,239,233,.14);
+  --line-soft:  rgba(242,239,233,.07);
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --disp: 'Archivo', 'Inter Tight', system-ui, sans-serif;
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--bone);
+  font-family:var(--disp);
+  line-height:1.55;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* film grain */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+::selection{background:var(--amber);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.amber{color:var(--amber)}
+.label{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--bone-dim);
+}
+.label::before{content:"— ";color:var(--amber)}
+
+/* ---------- reveal-on-scroll ---------- */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  *{animation-duration:.001s !important;animation-iteration-count:1 !important;transition-duration:.001s !important}
+}
+
+/* ============================ NAV ============================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(11,12,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.25rem;letter-spacing:.02em}
+.brand img{width:30px;height:30px;border-radius:7px}
+.brand .tag{font-family:var(--mono);font-weight:500;font-size:.62rem;letter-spacing:.28em;color:var(--bone-dim);border-left:1px solid var(--line);padding-left:12px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:28px;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
+.nav-links a{color:var(--bone-dim);transition:color .2s}
+.nav-links a:hover{color:var(--bone)}
+.btn-board{
+  color:var(--ink)!important;background:var(--amber);padding:9px 18px;font-weight:600;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);
+  transition:transform .2s var(--ease-out),background .2s;
+}
+.btn-board:hover{transform:translateX(3px);background:#ffc233}
+@media(max-width:760px){.nav-links a:not(.btn-board){display:none}.brand .tag{display:none}}
+
+/* ============================ HERO ============================ */
+.hero{position:relative;padding:150px 0 90px;overflow:hidden}
+.hero::before{ /* runway lights */
+  content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:repeating-linear-gradient(to bottom,transparent 0 26px,var(--line-soft) 26px 54px);
+  z-index:0;
+}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{
+  font-size:clamp(2.6rem,5.6vw,4.4rem);font-weight:900;line-height:1.02;
+  letter-spacing:-.02em;text-transform:uppercase;margin:20px 0 22px;
+}
+.hero h1 .dest{color:var(--amber);white-space:nowrap}
+.hero p.sub{color:var(--bone-dim);font-size:1.06rem;max-width:34rem;margin-bottom:30px}
+.hero p.sub strong{color:var(--bone);font-weight:700}
+
+/* split-flap status line */
+.flapline{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.flapline .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.flapboard{display:inline-flex;gap:2px}
+.flap{
+  font-family:var(--mono);font-size:.82rem;font-weight:600;
+  width:1.18em;height:1.72em;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg,#22262b 0 48%,#16191d 52% 100%);
+  border-radius:3px;color:var(--amber);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 1px 2px rgba(0,0,0,.5);
+  position:relative;
+}
+.flap::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
+.flap.tick{animation:flick .09s linear}
+@keyframes flick{0%{transform:rotateX(0)}50%{transform:rotateX(58deg)}100%{transform:rotateX(0)}}
+.flap.space{background:transparent;box-shadow:none}
+.flap.space::after{display:none}
+
+/* store buttons */
+.stores{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.store{
+  display:flex;align-items:center;gap:11px;padding:13px 22px;
+  border:1px solid var(--line);font-weight:700;font-size:.95rem;
+  background:var(--ink-2);transition:border-color .25s,transform .25s var(--ease-out),background .25s;
+}
+.store:hover{border-color:var(--amber);transform:translateY(-2px);background:var(--ink-3)}
+.store svg{width:20px;height:20px;flex:none}
+.store small{display:block;font-family:var(--mono);font-weight:400;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim)}
+
+/* ---------- the boarding pass ---------- */
+.pass-wrap{perspective:1200px}
+.pass{
+  --r: 14px;
+  display:grid;grid-template-columns:1fr 236px;
+  color:#101114;background:var(--bone);border-radius:var(--r);
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 4px 16px rgba(0,0,0,.4);
+  transform-style:preserve-3d;transition:transform .3s var(--ease-out);
+  position:relative;font-family:var(--mono);
+}
+.pass-main{padding:26px 28px;border-right:2px dashed rgba(16,17,20,.28);position:relative}
+/* perforation notches */
+.pass-main::before,.pass-main::after{
+  content:"";position:absolute;right:-13px;width:26px;height:26px;border-radius:50%;
+  background:var(--ink);z-index:2;
+}
+.pass-main::before{top:-13px}
+.pass-main::after{bottom:-13px}
+.pass-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.pass-head .airline{font-weight:600;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.pass-head .airline b{background:#101114;color:var(--bone);padding:2px 7px;margin-right:8px;border-radius:3px;letter-spacing:.1em}
+.pass-head .class-chip{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;border:1.5px solid #101114;padding:3px 9px;border-radius:99px;font-weight:600;white-space:nowrap}
+.pass-route{display:flex;align-items:center;gap:18px;margin:8px 0 20px}
+.pass-route .code{font-family:var(--disp);font-weight:900;font-size:clamp(2.2rem,4vw,3rem);letter-spacing:-.02em;line-height:1}
+.pass-route .code small{display:block;font-family:var(--mono);font-weight:500;font-size:.6rem;letter-spacing:.24em;color:#6b6d72;margin-top:6px;text-transform:uppercase}
+.pass-route .path{flex:1;position:relative;height:2px;background:repeating-linear-gradient(90deg,#101114 0 7px,transparent 7px 14px);min-width:60px}
+.pass-route .path svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);width:22px;height:22px;background:var(--bone);padding:0 3px}
+.pass-fields{display:grid;grid-template-columns:repeat(4,auto);gap:10px 26px}
+@media(max-width:500px){.pass-fields{grid-template-columns:repeat(2,auto)}}
+.pf small{display:block;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:#6b6d72;margin-bottom:3px}
+.pf span{font-weight:600;font-size:.92rem}
+.pass-stamp{
+  position:absolute;right:26px;bottom:20px;transform:rotate(-12deg) scale(1.15);
+  border:2px solid rgba(200,60,40,.6);color:rgba(200,60,40,.72);border-radius:6px;
+  font-size:.6rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;
+  padding:5px 10px;white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity .5s .9s,transform .5s .9s var(--ease-out);
+}
+.in .pass-stamp{opacity:1;transform:rotate(-8deg) scale(1)}
+.pass-fine{
+  margin-top:16px;text-align:center;font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.12em;color:var(--bone-dim);opacity:.75;
+}
+.pass-stub{padding:26px 22px;display:flex;flex-direction:column;justify-content:space-between;background:#101114;color:var(--bone);border-radius:0 var(--r) var(--r) 0}
+.pass-stub .pf small{color:#8b8d93}
+.pass-stub .route-mini{font-family:var(--disp);font-weight:900;font-size:1.5rem;margin:12px 0 10px}
+.barcode{
+  height:52px;margin-top:14px;border-radius:3px;
+  background:repeating-linear-gradient(90deg,var(--bone) 0 2px,transparent 2px 5px,var(--bone) 5px 6px,transparent 6px 10px,var(--bone) 10px 13px,transparent 13px 15px);
+}
+@media(max-width:520px){
+  .pass{grid-template-columns:1fr}
+  .pass-main{border-right:none;border-bottom:2px dashed rgba(16,17,20,.28);padding-bottom:64px}
+  .pass-main::before{top:auto;bottom:-13px;left:-13px;right:auto}
+  .pass-main::after{bottom:-13px;right:-13px}
+  .pass-stub{border-radius:0 0 var(--r) var(--r)}
+}
+
+/* ======================= DEPARTURES BOARD ======================= */
+section{padding:96px 0}
+.board{border:1px solid var(--line);background:var(--ink-2);border-radius:12px;overflow:hidden;margin-top:36px}
+.board-head,.board-row{
+  display:grid;grid-template-columns:110px 1.2fr 2fr 90px 140px;gap:16px;
+  padding:16px 26px;align-items:center;font-family:var(--mono);
+}
+.board-head{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--bone-dim);background:var(--ink-3);border-bottom:1px solid var(--line-soft)}
+.board-row{border-bottom:1px solid var(--line-soft);font-size:.86rem;transition:background .25s}
+.board-row:last-child{border-bottom:none}
+.board-row:hover{background:var(--amber-dim)}
+.board-row .flight{color:var(--amber);font-weight:600}
+.board-row .dest{font-family:var(--disp);font-weight:800;font-size:1.02rem;letter-spacing:.02em;text-transform:uppercase}
+.board-row .desc{color:var(--bone-dim);font-size:.78rem;line-height:1.5}
+.board-row .gate{color:var(--bone-dim)}
+.status{display:inline-block;padding:4px 10px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;border-radius:3px;background:rgba(55,214,122,.12);color:var(--green)}
+.status.amber{background:var(--amber-dim);color:var(--amber)}
+@media(max-width:820px){
+  .board-head{display:none}
+  .board-row{grid-template-columns:1fr;gap:6px;padding:18px 20px}
+  .board-row .gate{display:none}
+}
+
+/* ======================= ITINERARY (legs) ======================= */
+.itin{position:relative}
+.leg{
+  display:grid;grid-template-columns:64px 1fr 380px;gap:34px;align-items:center;
+  padding:44px 0;border-bottom:1px dashed var(--line);
+}
+.leg:last-child{border-bottom:none}
+.leg-num{
+  font-family:var(--mono);color:var(--amber);font-size:.72rem;letter-spacing:.2em;
+  writing-mode:vertical-rl;text-orientation:mixed;text-transform:uppercase;
+  border-left:2px solid var(--amber);padding-left:12px;height:min-content;
+}
+.leg h3{font-size:1.7rem;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:4px}
+.leg .dur{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--amber);text-transform:uppercase;margin-bottom:14px}
+.leg p{color:var(--bone-dim);max-width:34rem}
+.leg p+p{margin-top:10px}
+.leg-shot{position:relative}
+.leg-shot .frame{
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--ink-3);
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+  transform:rotate(1.5deg);transition:transform .5s var(--ease-out);
+}
+.leg:nth-child(even) .leg-shot .frame{transform:rotate(-1.5deg)}
+.leg-shot:hover .frame{transform:rotate(0) scale(1.02)}
+.leg-shot .slot-tag{
+  position:absolute;top:10px;left:10px;z-index:2;font-family:var(--mono);font-size:.56rem;
+  letter-spacing:.2em;text-transform:uppercase;background:rgba(11,12,14,.8);color:var(--bone-dim);
+  padding:4px 8px;border-radius:3px;border:1px solid var(--line-soft);
+}
+@media(max-width:920px){
+  .leg{grid-template-columns:1fr}
+  .leg-num{writing-mode:horizontal-tb;border-left:none;border-top:2px solid var(--amber);padding:8px 0 0}
+  .leg-shot{max-width:420px}
+}
+
+/* ======================= FUEL (nutrition) ======================= */
+.fuel-card{
+  display:grid;grid-template-columns:1.1fr .9fr;border:1px solid var(--line);
+  background:linear-gradient(135deg,var(--ink-2),var(--ink-3));border-radius:12px;overflow:hidden;margin-top:36px;
+}
+.fuel-left{padding:46px}
+.fuel-left h3{font-size:1.9rem;font-weight:900;text-transform:uppercase;margin:10px 0 14px}
+.fuel-left p{color:var(--bone-dim);max-width:30rem}
+.fuel-right{border-left:1px dashed var(--line);padding:38px 40px;font-family:var(--mono)}
+.menu-row{display:flex;justify-content:space-between;gap-row:8px;padding:11px 0;border-bottom:1px dotted var(--line);font-size:.82rem}
+.menu-row:last-child{border-bottom:none}
+.menu-row b{color:var(--amber);font-weight:600}
+.fuel-note{margin-top:18px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-dim)}
+@media(max-width:820px){.fuel-card{grid-template-columns:1fr}.fuel-right{border-left:none;border-top:1px dashed var(--line)}}
+
+/* ======================= PREMIUM CABIN ======================= */
+.cabin{background:var(--ink-2);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.cabin-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:8px}
+@media(max-width:920px){.cabin-grid{grid-template-columns:1fr}}
+.cabin h2{font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;line-height:1.05;margin:16px 0 18px}
+.cabin p.lead{color:var(--bone-dim);font-size:1.02rem;max-width:32rem}
+.perks{list-style:none;margin:26px 0 34px;display:grid;gap:13px}
+.perks li{display:flex;gap:14px;align-items:baseline;color:var(--bone)}
+.perks li::before{content:"✓";font-family:var(--mono);color:var(--green);font-weight:600;flex:none}
+.perks li span{color:var(--bone-dim)}
+.perks li b{color:var(--bone)}
+/* membership card */
+.member-card{
+  position:relative;border-radius:18px;padding:34px 32px;aspect-ratio:1.62;max-width:460px;margin:0 auto;
+  background:
+    radial-gradient(120% 160% at 20% 0%,#2a2d33 0%,#141619 55%,#0c0d10 100%);
+  border:1px solid rgba(255,177,0,.35);
+  box-shadow:0 30px 80px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+  transition:transform .3s var(--ease-out);
+}
+.member-card::before{ /* sheen */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.06) 45%,transparent 60%);
+  transform:translateX(-100%);animation:sheen 5.5s ease-in-out infinite;
+}
+@keyframes sheen{0%,60%{transform:translateX(-100%)}85%,100%{transform:translateX(100%)}}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start}
+.mc-top img{width:40px;height:40px;border-radius:9px}
+.mc-tier{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amber);border:1px solid rgba(255,177,0,.45);padding:5px 11px;border-radius:99px}
+.mc-name{font-family:var(--mono);font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone)}
+.mc-name small{display:block;font-size:.56rem;letter-spacing:.22em;color:var(--bone-dim);margin-bottom:6px}
+.mc-bottom{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono)}
+.mc-since small{display:block;font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bone-dim);margin-bottom:4px}
+.mc-since span{font-size:.8rem;letter-spacing:.14em}
+.mc-chip{width:44px;height:32px;border-radius:6px;background:linear-gradient(135deg,#e8c56a,#a8853a);box-shadow:inset 0 0 0 1px rgba(0,0,0,.3)}
+.family-note{margin-top:22px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--bone-dim);text-transform:uppercase;text-align:center}
+
+/* ======================= WEARABLE STRIP ======================= */
+.strip{border-top:1px solid var(--line-soft);padding:56px 0}
+.strip-inner{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.strip h3{font-size:1.3rem;font-weight:900;text-transform:uppercase}
+.strip p{color:var(--bone-dim);max-width:32rem;margin-top:6px}
+.strip .badges{display:flex;gap:12px}
+.strip .badge{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);padding:10px 16px;color:var(--bone-dim)}
+.strip .badge svg{width:16px;height:16px}
+
+/* ======================= FOOTER ======================= */
+footer{border-top:1px solid var(--line-soft);padding:44px 0 60px}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim)}
+.foot a:hover{color:var(--bone)}
+.foot .links{display:flex;gap:26px}
+
+/* section headers */
+.sec-head{max-width:720px}
+.sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:900;text-transform:uppercase;line-height:1.08;margin:14px 0 14px}
+.sec-head p{color:var(--bone-dim)}
+</style>
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="brand">
+      <img src="assets/app_logo.jpg" alt="L3X logo">
+      L3X <span class="tag">Longevity Airlines</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#departures">Departures</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#fuel">Fuel</a>
+      <a href="#cabin">Premium Cabin</a>
+      <a href="#cabin" class="btn-board">Board Now</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="reveal in">
+      <div class="flapline">
+        <span class="dot"></span>
+        <span class="mono" style="font-size:.72rem;letter-spacing:.22em;color:var(--bone-dim)">NOW BOARDING</span>
+        <span class="flapboard" id="flap-status" aria-label="Flight L3X to Longevity"></span>
+      </div>
+      <h1>One-way ticket<br>to <span class="dest" id="flap-dest">Longevity</span></h1>
+      <p class="sub">L3X is not a workout app you open twice. It's a <strong>premium membership for the longest journey you'll ever take</strong> — algorithmic strength programming, mobility and recovery, engineered to extend your healthspan. Nutrition tracking rides along at no extra charge.</p>
+      <div class="stores">
+        <a href="#" class="store">
+          <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <span><small>Check in via</small>App Store</span>
+        </a>
+        <a href="#" class="store">
+          <svg viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+          <span><small>Check in via</small>Google Play</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Boarding pass -->
+    <div class="pass-wrap reveal in d2">
+      <div class="pass" id="pass">
+        <div class="pass-main">
+          <div class="pass-head">
+            <span class="airline"><b>L3X</b>Longevity Airlines</span>
+            <span class="class-chip">Premium Cabin</span>
+          </div>
+          <div class="pass-route">
+            <div class="code">NOW<small>Today · Any shape</small></div>
+            <div class="path">
+              <svg viewBox="0 0 24 24" fill="#101114"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </div>
+            <div class="code">100<small>Strong · Mobile · Sharp</small></div>
+          </div>
+          <div class="pass-fields">
+            <div class="pf"><small>Passenger</small><span>YOU</span></div>
+            <div class="pf"><small>Flight</small><span>L3X-∞</span></div>
+            <div class="pf"><small>Gate</small><span>STRENGTH</span></div>
+            <div class="pf"><small>Seat</small><span>4F · PREM</span></div>
+            <div class="pf"><small>Departs</small><span id="pass-date">TODAY</span></div>
+            <div class="pf"><small>Return</small><span>NO RETURN</span></div>
+          </div>
+          <div class="pass-stamp">Priority · Lifetime</div>
+        </div>
+        <div class="pass-stub">
+          <div>
+            <div class="pf" style="margin-bottom:6px"><small>Boarding Pass</small></div>
+            <div class="mc-name"><small>Passenger</small>YOU</div>
+            <div class="route-mini">NOW ✈ 100</div>
+            <div class="pf"><small>Seat</small><span>4F (Prem Cabin)</span></div>
+          </div>
+          <div class="barcode" role="img" aria-label="barcode"></div>
+        </div>
+      </div>
+      <p class="pass-fine">* Valid for one (1) lifetime · Non-transferable · No refunds on skipped sessions</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== DEPARTURES ======================== -->
+<section id="departures">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="label">Departures · All gates</span>
+      <h2>Every system, scheduled.<br><span class="amber">Nothing left to willpower.</span></h2>
+      <p>The L3X Engine periodizes your entire year like a flight plan — sequencing strength, conditioning, mobility, and recovery so you never have to decide what to do at the gym again.</p>
+    </div>
+    <div class="board reveal d1">
+      <div class="board-head">
+        <span>Flight</span><span>Destination</span><span>Service</span><span>Gate</span><span>Status</span>
+      </div>
+      <div class="board-row">
+        <span class="flight">L3X-01</span>
+        <span class="dest">Strength</span>
+        <span class="desc">Compound, eccentric-biased resistance training to build muscle armor and hold off sarcopenia for decades.</span>
+        <span class="gate">A1</span>
+        <span><span class="status">Boarding</span></span>
+      </div>
+      <div class="board-row">
+        <span class="flight">L3X-02</span>
+        <span class="dest">Movement</span>
+        <span class="desc">Zone 2 engine work, VO₂ max intervals, and mobility flows to keep the chassis and cardio system young.</span>
+        <span class="gate">A2</span>
+        <span><span class="status">Boarding</span></span>
+      </div>
+      <div class="board-row">
+        <span class="flight">L3X-03</span>
+        <span class="dest">Recovery</span>
+        <span class="desc">Programmed deloads, myofascial release, and nervous-system resets — recovery scheduled, not hoped for.</span>
+        <span class="gate">A3</span>
+        <span><span class="status">Boarding</span></span>
+      </div>
+      <div class="board-row">
+        <span class="flight">L3X-X</span>
+        <span class="dest">Your X Factor</span>
+        <span class="desc">Custom vectors — sport-focus protocols, VO₂ blocks, muscle gain or fat loss — injected straight into your weekly plan.</span>
+        <span class="gate">X</span>
+        <span><span class="status amber">Custom</span></span>
+      </div>
+      <div class="board-row">
+        <span class="flight">L3X-RPE</span>
+        <span class="dest">Auto-Regulation</span>
+        <span class="desc">Rate each set's effort; the engine recalculates your loads and volume for next session. Zero data entry, pure execution.</span>
+        <span class="gate">B1</span>
+        <span><span class="status">On Time</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== ITINERARY ======================== -->
+<section id="itinerary" style="padding-top:40px">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="label">Your itinerary · Three legs</span>
+      <h2>A flight plan for your physiology</h2>
+      <p>Elite athletes don't wing it — their year is structured in cycles. The L3X Engine runs the same playbook for you, automatically.</p>
+    </div>
+    <div class="itin">
+      <div class="leg reveal">
+        <div class="leg-num">Leg 01 · Macro</div>
+        <div>
+          <h3>The Macrocycle</h3>
+          <div class="dur">Duration · 12 months · The master route</div>
+          <p>Your long-haul roadmap. The engine sequences the year into physiological phases — hypertrophy, strength, power, deload — so you peak on schedule and adapt continuously.</p>
+          <p>Automated phase-shifting unlocks for advanced flyers; new lifters progress fastest on a straight climb.</p>
+        </div>
+        <div class="leg-shot">
+          <span class="slot-tag">Screenshot slot · macro</span>
+          <div class="frame"><img src="assets/l3x_macro.png" alt="Macrocycle timeline in L3X"></div>
+        </div>
+      </div>
+      <div class="leg reveal">
+        <div class="leg-num">Leg 02 · Meso</div>
+        <div>
+          <h3>The Mesocycle</h3>
+          <div class="dur">Duration · 4–6 weeks · The training block</div>
+          <p>Exercises lock in week over week so the engine can read your true progression. Your only job: rate the effort. RPE feeds the algorithm; the algorithm sets tomorrow's weights.</p>
+          <p>Plateau detected? The engine triggers a phase shift on its own.</p>
+        </div>
+        <div class="leg-shot">
+          <span class="slot-tag">Screenshot slot · meso</span>
+          <div class="frame"><img src="assets/l3x_meso.png" alt="Mesocycle view in L3X"></div>
+        </div>
+      </div>
+      <div class="leg reveal">
+        <div class="leg-num">Leg 03 · Micro</div>
+        <div>
+          <h3>The Microcycle</h3>
+          <div class="dur">Duration · 7 days · Tactical execution</div>
+          <p>Your week, woven. Sport protocols, active recovery, and conditioning slot into the foundation without ever overloading your nervous system. This is where your X factor flies.</p>
+        </div>
+        <div class="leg-shot">
+          <span class="slot-tag">Screenshot slot · micro</span>
+          <div class="frame"><img src="assets/l3x_micro.png" alt="Microcycle calendar in L3X"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== FUEL ======================== -->
+<section id="fuel" style="padding-top:20px">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="label">In-flight service</span>
+      <h2>Fuel service included</h2>
+    </div>
+    <div class="fuel-card reveal d1">
+      <div class="fuel-left">
+        <span class="label">Nutrition tracking · Complimentary in Premium Cabin</span>
+        <h3>You can't out-train<br>an empty tank</h3>
+        <p>Every premium membership includes full nutrition tracking — calories, protein targets, and macros aligned to your current training phase. Bulking block or deload week, your fuel plan follows your flight plan.</p>
+      </div>
+      <div class="fuel-right">
+        <div class="menu-row"><span>Calorie targets</span><b>Phase-matched</b></div>
+        <div class="menu-row"><span>Protein tracking</span><b>Per kg, daily</b></div>
+        <div class="menu-row"><span>Macro breakdown</span><b>Included</b></div>
+        <div class="menu-row"><span>Logging friction</span><b>Minimal</b></div>
+        <div class="menu-row"><span>Extra charge</span><b>None</b></div>
+        <div class="fuel-note">— A la carte? No. It's all in the fare.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PREMIUM CABIN ======================== -->
+<section id="cabin" class="cabin">
+  <div class="container">
+    <div class="cabin-grid">
+      <div class="reveal">
+        <span class="label">The fare · One class only</span>
+        <h2>This isn't a subscription.<br><span class="amber">It's a membership.</span></h2>
+        <p class="lead">When you subscribe to L3X you're not renting an app — you're taking a seat in the premium cabin for a lifelong flight: a full training, recovery, and nutrition system that thinks so you can lift.</p>
+        <ul class="perks">
+          <li><b>Algorithmic periodization</b>&nbsp;<span>— macro, meso, and micro cycles managed for you</span></li>
+          <li><b>RPE auto-regulation</b>&nbsp;<span>— loads recalibrated after every session</span></li>
+          <li><b>Custom X vectors</b>&nbsp;<span>— sport focus, VO₂ blocks, physique goals</span></li>
+          <li><b>Nutrition tracking</b>&nbsp;<span>— phase-matched fueling, included</span></li>
+          <li><b>Watch companion</b>&nbsp;<span>— Apple Watch &amp; Wear OS, live in-set sync</span></li>
+          <li><b>Family Sharing</b>&nbsp;<span>— one fare covers up to 5 companions</span></li>
+        </ul>
+        <div class="stores" style="margin-top:0">
+          <a href="#" class="store">
+            <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span><small>Board via</small>App Store</span>
+          </a>
+          <a href="#" class="store">
+            <svg viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+            <span><small>Board via</small>Google Play</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal d2">
+        <div class="member-card" id="membercard">
+          <div class="mc-top">
+            <img src="assets/app_logo.jpg" alt="">
+            <span class="mc-tier">Premier Member</span>
+          </div>
+          <div class="mc-name"><small>Member</small>YOUR NAME HERE</div>
+          <div class="mc-bottom">
+            <div class="mc-since"><small>Member since</small><span id="mc-year">2026</span> · <span>NOW ✈ 100</span></div>
+            <div class="mc-chip"></div>
+          </div>
+        </div>
+        <div class="family-note">✦ One membership · Up to 5 family members via Apple &amp; Google Family Sharing ✦</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== WEARABLE STRIP ======================== -->
+<div class="strip">
+  <div class="container strip-inner reveal">
+    <div>
+      <h3>Cockpit on your wrist</h3>
+      <p>The companion app streams live set data, rest timers, and RPE capture from your Apple Watch or Wear OS device — phone stays in the bag.</p>
+    </div>
+    <div class="badges">
+      <span class="badge"><svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>Apple Watch</span>
+      <span class="badge"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>Wear OS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== FOOTER ======================== -->
+<footer>
+  <div class="container foot">
+    <span>© 2026 L3X · Longevity Airlines · All rights reserved</span>
+    <div class="links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---------- split-flap status board ---------- */
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·-∞ ';
+  function buildBoard(el, width){
+    el.innerHTML = '';
+    var flaps = [];
+    for(var i=0;i<width;i++){
+      var s = document.createElement('span');
+      s.className = 'flap space';
+      s.textContent = ' ';
+      el.appendChild(s);
+      flaps.push(s);
+    }
+    return flaps;
+  }
+  function setBoard(flaps, text){
+    text = text.toUpperCase();
+    flaps.forEach(function(flap, i){
+      var target = i < text.length ? text[i] : ' ';
+      if(flap.textContent === target) return;
+      if(reduced){
+        flap.textContent = target === ' ' ? ' ' : target;
+        flap.classList.toggle('space', target === ' ');
+        return;
+      }
+      var spins = 3 + Math.floor(Math.random()*6);
+      var delay = i * 28;
+      setTimeout(function tick(){
+        flap.classList.remove('space');
+        if(spins-- <= 0){
+          flap.textContent = target === ' ' ? ' ' : target;
+          flap.classList.toggle('space', target === ' ');
+          return;
+        }
+        flap.textContent = CHARS[Math.floor(Math.random()*CHARS.length)];
+        flap.classList.remove('tick'); void flap.offsetWidth; flap.classList.add('tick');
+        setTimeout(tick, 55);
+      }, delay);
+    });
+  }
+  var statusEl = document.getElementById('flap-status');
+  if(statusEl){
+    var msgs = ['FLIGHT L3X-∞ · GATE A1','DEST · LONGEVITY','SEAT 4F · PREMIUM','STATUS · BOARDING'];
+    var flaps = buildBoard(statusEl, Math.max.apply(null, msgs.map(function(m){return m.length;})));
+    var mi = 0;
+    setBoard(flaps, msgs[0]);
+    setInterval(function(){ mi = (mi+1)%msgs.length; setBoard(flaps, msgs[mi]); }, 4200);
+  }
+
+  /* ---------- rotating destination word ---------- */
+  var destEl = document.getElementById('flap-dest');
+  if(destEl && !reduced){
+    var words = ['Longevity','Strength','Mobility','Year 100'];
+    var wi = 0;
+    setInterval(function(){
+      wi = (wi+1)%words.length;
+      destEl.style.transition = 'opacity .25s';
+      destEl.style.opacity = 0;
+      setTimeout(function(){ destEl.textContent = words[wi]; destEl.style.opacity = 1; }, 260);
+    }, 3400);
+  }
+
+  /* ---------- boarding pass tilt ---------- */
+  var pass = document.getElementById('pass');
+  if(pass && !reduced && matchMedia('(pointer:fine)').matches){
+    var wrap = pass.parentElement;
+    wrap.addEventListener('mousemove', function(e){
+      var r = wrap.getBoundingClientRect();
+      var x = (e.clientX - r.left)/r.width - .5;
+      var y = (e.clientY - r.top)/r.height - .5;
+      pass.style.transform = 'rotateY('+(x*7)+'deg) rotateX('+(-y*7)+'deg)';
+    });
+    wrap.addEventListener('mouseleave', function(){ pass.style.transform = ''; });
+  }
+
+  /* ---------- live-ish details ---------- */
+  var d = new Date();
+  var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  var dateEl = document.getElementById('pass-date');
+  if(dateEl) dateEl.textContent = String(d.getDate()).padStart(2,'0') + ' ' + months[d.getMonth()];
+  var yearEl = document.getElementById('mc-year');
+  if(yearEl) yearEl.textContent = d.getFullYear();
+})();
+</script>
+</body>
+</html>
