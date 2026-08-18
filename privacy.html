@@ -58,19 +58,27 @@
         </div>
 
         <h2><span class="n">02</span> Data Collection, Storage, and Custodianship</h2>
-        <p><strong>Secure Cloud Storage:</strong> We operate on a strict "Privacy by Design" architecture. To ensure your workout history and health metrics sync seamlessly across your devices, your data is securely stored using Google Firebase.</p>
+        <p><strong>Secure Cloud Storage:</strong> We operate on a strict "Privacy by Design" architecture. To ensure your workout history and health metrics sync seamlessly across your devices, your data is securely stored in a managed Postgres database hosted by Supabase.</p>
         <p><strong>Strict Access Controls:</strong> We utilize end-to-end security rules ensuring that your data is strictly siloed. <strong>Only you</strong>, when authenticated via your personal account, have the ability to read or write your personal data. We do not harvest, monetize, or sell your personal data, biometric data, or usage metrics. Our engineering and support teams cannot read your raw health data.</p>
-        <p><strong>Data Deletion:</strong> You retain full custodianship of your data. You may initiate a complete deletion of your account and all associated data stored in Firebase at any time directly through the App settings.</p>
+        <p><strong>Data Deletion:</strong> You retain full custodianship of your data. You may initiate a complete deletion of your account and all associated data stored on our servers at any time directly through the App settings.</p>
 
-        <h2><span class="n">03</span> Anonymous Crash and Performance Data</h2>
-        <p>To maintain the stability and optimization of the L3X Engine, we automatically collect crash reports and performance diagnostics. <strong>This data is completely anonymized and is not linked to your personal identity, user account, or health metrics.</strong> It contains only technical system information (such as device model, operating system version, and error stack traces) necessary for our engineering team to identify bugs and ensure the App runs smoothly.</p>
-
-        <h2><span class="n">04</span> Apple HealthKit &amp; Google Health Connect Integration</h2>
-        <p>With your explicit, opt-in consent, the App integrates with Apple HealthKit and Google Health Connect ("Health APIs") to read specific health and fitness data.</p>
-        <p><strong>Requested Data Types:</strong> We may request read access to metrics including, but not limited to: Heart Rate, Heart Rate Variability (HRV), VO2 Max, Sleep Analysis, and Active Energy Burned.</p>
-        <p><strong>Strict Usage Limitations:</strong> In strict compliance with Apple and Google Developer Guidelines:</p>
+        <h2><span class="n">03</span> Crash Reports, and What We Do Not Collect</h2>
+        <p>The App contains <strong>no advertising, no behavioural tracking, and no product analytics</strong>. We do not measure which screens you open or how long you spend in them, we do not build a profile of your behaviour, and we never sell or share your data.</p>
+        <p><strong>We do collect crash and error reports</strong>, using a service called Sentry, so that a failure on your device reaches us instead of going unnoticed. A report contains the technical trace of what went wrong, your device model, your operating system version, and the App version — and nothing else. Personal identifiers are disabled at the source: reports are not linked to your name, your account, or any health or training data.</p>
+        <p>Two further things happen outside the App:</p>
         <ul>
-          <li>Data obtained through Health APIs is synced securely to your private Firebase account to power the L3X analytics engine and provide you with real-time feedback across your devices regarding longevity, recovery, and mobility.</li>
+          <li>If you have chosen to share analytics with developers in your device settings, Apple may give us aggregate, anonymised reports. That data is collected by Apple, not by us, and cannot be linked to your account.</li>
+          <li>Your subscription is billed by Apple and managed through RevenueCat, which receives an anonymous identifier and your subscription status so the App knows whether your membership is active. It receives no health or training data.</li>
+        </ul>
+
+        <h2><span class="n">04</span> Apple HealthKit Integration</h2>
+        <p>With your explicit, opt-in consent, the App integrates with Apple HealthKit to read specific health and fitness data.</p>
+        <p><strong>Requested Data Types:</strong> We may request read access to metrics including, but not limited to: Heart Rate, Heart Rate Variability (HRV), VO2 Max, Sleep Analysis, Resting Heart Rate, Workouts, and Active Energy Burned.</p>
+        <p><strong>Strict Usage Limitations:</strong> In strict compliance with Apple's Developer Guidelines:</p>
+        <ul>
+          <li><strong>Most Health data never leaves your device.</strong> Readings such as heart-rate variability, sleep and resting heart rate are read from Apple Health on your device at the moment a screen needs them, used to calculate what you see, and are neither stored by us nor transmitted anywhere.</li>
+          <li>The exception is the average and maximum heart rate recorded during a workout you complete in the App. Those two values are saved alongside that session and sync with the rest of your training history, so your log is complete across your devices.</li>
+          <li>With your permission, the App also writes workouts you complete back to Apple Health, so your rings and history stay accurate.</li>
           <li>We <strong>do not</strong> use or disclose Health API data to third parties for advertising, marketing, data mining, or other use-based data monetization.</li>
           <li>You may revoke the App's access to Health APIs at any time through your device's system settings.</li>
         </ul>
@@ -83,6 +91,9 @@
 
         <h2><span class="n">07</span> Policy Modifications</h2>
         <p>We reserve the right to modify this Policy at our sole discretion. Because we do not collect contact information, we cannot notify you individually of changes. Continued use of the App following any modifications constitutes your acceptance of the revised Policy. Please check this page periodically for updates.</p>
+
+        <h2><span class="n">08</span> Contact</h2>
+        <p>For any question about this Policy, to request a copy of your data, or to ask us to delete it, write to <a href="mailto:hello@l3x.info">hello@l3x.info</a>. You can also delete your account and all of its data yourself, at any time, from the App's settings.</p>
       </div>
 
       <div class="sheet-foot">
@@ -101,7 +112,7 @@
     <div class="links">
       <a href="privacy.html">Privacy</a>
       <a href="terms.html">Terms</a>
-      <a href="#">Contact</a>
+      <a href="mailto:hello@l3x.info">Contact</a>
     </div>
   </div>
 </footer>
