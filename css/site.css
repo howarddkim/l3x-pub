@@ -73,8 +73,10 @@ img{max-width:100%;display:block}
   background:rgba(11,12,14,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.25rem;letter-spacing:.02em}
-.brand img{width:30px;height:30px;border-radius:7px}
+/* the icon IS the wordmark — it carries the L3X letters, so the nav does not
+   repeat them in text beside it */
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:40px;height:40px;border-radius:9px}
 .brand .tag{font-family:var(--mono);font-weight:500;font-size:.62rem;letter-spacing:.28em;color:var(--bone-dim);border-left:1px solid var(--line);padding-left:12px;text-transform:uppercase}
 .nav-links{display:flex;align-items:center;gap:28px;font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase}
 .nav-links a{color:var(--bone-dim);transition:color .2s}
