@@ -46,7 +46,7 @@
       </div>
 
       <div class="sheet-body">
-        <p class="effective">Effective Date: <b>May 23, 2026</b></p>
+        <p class="effective">Effective Date: <b>May 23, 2026</b> · Updated: <b>September 30, 2026</b></p>
 
         <p>This Privacy Policy and Liability Waiver ("Policy") governs your use of the L3X mobile application (the "App"), operated by Korcan Trading ("Korcan Trading," "we," "us," or "our"). By downloading, accessing, or using the App, you agree to be bound by the terms set forth herein. If you do not agree to these terms, do not use the App.</p>
 
@@ -61,7 +61,7 @@
         <p><strong>Data Deletion:</strong> You retain full custodianship of your data. You may initiate a complete deletion of your account and all associated data stored on our servers at any time directly through the App settings.</p>
 
         <h2><span class="n">03</span> Crash Reports, and What We Do Not Collect</h2>
-        <p>The App contains <strong>no advertising, no behavioural tracking, and no product analytics</strong>. We do not measure which screens you open or how long you spend in them, we do not build a profile of your behaviour, and we never sell or share your data.</p>
+        <p>The App contains <strong>no advertising, no behavioural tracking, and no product analytics</strong>. We do not measure which screens you open or how long you spend in them, we do not build a profile of your behaviour, and we never sell your data or share it for advertising. Beyond the storage described in section 02, the one outside service that receives what you log is described in section 04, and only if you turn it on.</p>
         <p><strong>We do collect crash and error reports</strong>, using a service called Sentry, so that a failure on your device reaches us instead of going unnoticed. A report contains the technical trace of what went wrong, your device model, your operating system version, and the App version — and nothing else. Personal identifiers are disabled at the source: reports are not linked to your name, your account, or any health or training data.</p>
         <p>Two further things happen outside the App:</p>
         <ul>
@@ -69,28 +69,39 @@
           <li>Your subscription is billed by Apple and managed through RevenueCat, which receives an anonymous identifier and your subscription status so the App knows whether your membership is active. It receives no health or training data.</li>
         </ul>
 
-        <h2><span class="n">04</span> Apple HealthKit Integration</h2>
+        <h2><span class="n">04</span> AI Meal Logging and Coaching</h2>
+        <p>Meal logging and the coaching notes on Insights use <strong>Gemini, an AI service from Google</strong>. <strong>Nothing is sent unless you turn it on.</strong> The App asks first, during setup or the first time you log a meal, and you can turn it off at any time in Settings.</p>
+        <p><strong>What is sent when it is on:</strong></p>
+        <ul>
+          <li>The meals you log: the text you type, the transcript of what you say, and the photos you take or choose.</li>
+          <li>The focus readings on Insights: sleep, heart-rate variability (HRV), resting heart rate, VO2 max, steps and exercise minutes, some of which come from Apple Health, and summaries of your training such as consistency and volume trend.</li>
+        </ul>
+        <p><strong>What is never sent:</strong> your name, your email address, or the sets you log.</p>
+        <p>Requests pass through our server, which forwards them to Google over an encrypted connection. Google uses them only to return the calories and macros for a meal, or a coaching note. We use Google's paid Gemini API, under whose terms Google does not use your requests or its answers to improve its products; it keeps them for a limited period solely to detect and prevent abuse.</p>
+        <p>If you leave it off, the App cannot read a meal, so meal logging is unavailable, and Insights shows its built-in coaching notes instead.</p>
+
+        <h2><span class="n">05</span> Apple HealthKit Integration</h2>
         <p>With your explicit, opt-in consent, the App integrates with Apple HealthKit to read specific health and fitness data.</p>
         <p><strong>Requested Data Types:</strong> We may request read access to metrics including, but not limited to: Heart Rate, Heart Rate Variability (HRV), VO2 Max, Sleep Analysis, Resting Heart Rate, Workouts, and Active Energy Burned.</p>
         <p><strong>Strict Usage Limitations:</strong> In strict compliance with Apple's Developer Guidelines:</p>
         <ul>
-          <li><strong>Most Health data never leaves your device.</strong> Readings such as heart-rate variability, sleep and resting heart rate are read from Apple Health on your device at the moment a screen needs them, used to calculate what you see, and are neither stored by us nor transmitted anywhere.</li>
+          <li><strong>Most Health data never leaves your device.</strong> Readings such as heart-rate variability, sleep and resting heart rate are read from Apple Health on your device at the moment a screen needs them, used to calculate what you see, and are not stored by us. They leave your device only if you turn on AI coaching, and then only as the focus readings described in section 04, sent to Google Gemini to write your coaching note.</li>
           <li>The exception is the average and maximum heart rate recorded during a workout you complete in the App. Those two values are saved alongside that session and sync with the rest of your training history, so your log is complete across your devices.</li>
           <li>With your permission, the App also writes workouts you complete back to Apple Health, so your rings and history stay accurate.</li>
           <li>We <strong>do not</strong> use or disclose Health API data to third parties for advertising, marketing, data mining, or other use-based data monetization.</li>
           <li>You may revoke the App's access to Health APIs at any time through your device's system settings.</li>
         </ul>
 
-        <h2><span class="n">05</span> Children's Privacy (COPPA Compliance)</h2>
+        <h2><span class="n">06</span> Children's Privacy (COPPA Compliance)</h2>
         <p>The App is intended for adults engaged in strength training and longevity optimization. We do not knowingly solicit data from or market to children under the age of 18. By using the App, you represent that you are at least 18 years of age.</p>
 
-        <h2><span class="n">06</span> Governing Law</h2>
+        <h2><span class="n">07</span> Governing Law</h2>
         <p>This Policy shall be governed by and construed in accordance with the laws of the jurisdiction in which Korcan Trading operates, without regard to its conflict of law provisions.</p>
 
-        <h2><span class="n">07</span> Policy Modifications</h2>
+        <h2><span class="n">08</span> Policy Modifications</h2>
         <p>We reserve the right to modify this Policy at our sole discretion. Because we do not collect contact information, we cannot notify you individually of changes. Continued use of the App following any modifications constitutes your acceptance of the revised Policy. Please check this page periodically for updates.</p>
 
-        <h2><span class="n">08</span> Contact</h2>
+        <h2><span class="n">09</span> Contact</h2>
         <p>For any question about this Policy, to request a copy of your data, or to ask us to delete it, write to <a href="mailto:hello@l3x.info">hello@l3x.info</a>. You can also delete your account and all of its data yourself, at any time, from the App's settings.</p>
       </div>
 
